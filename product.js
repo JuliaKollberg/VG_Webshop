@@ -45,37 +45,40 @@ function loadProducts(products) {
 
     // Lagt till ratio-4x3 + object-fit: contain + text-truncate
     productDiv.innerHTML = `
-      <div class="card h-100">
-        <div class="ratio ratio-4x3">
-          <img 
-            src="${product.image}" 
-            class="card-img-top img-fluid" 
-            style="object-fit: contain;" 
-            alt="${product.title}"
-            onclick="popUpWindow(
-              '${product.image.replace(/'/g, "\\'")}', 
-              '${product.title.replace(/'/g, "\\'")}', 
-              '${product.description.replace(/'/g, "\\'")}', 
-              '${product.price}'
-            )"
-          >
-        </div>
-        <div class="card-body d-flex flex-column">
-          <h5 class="card-title text-truncate">${product.title}</h5>
-          <p class="card-text flex-grow-1">${product.description.substring(
-            0,
-            100
-          )}...</p>
-          <p class="fw-bold">${product.price}$</p>
-          <button 
-            class="btn btn-outline-secondary mt-auto w-100" 
-            onclick="location.href='order-form.html?product-id=${product.id}'"
-          >
-            Buy
-          </button>
-        </div>
-      </div>
-    `;
+  <div class="card h-100">
+    <div class="ratio ratio-4x3">
+      <img 
+        src="${product.image}" 
+        class="card-img-top img-fluid" 
+        style="object-fit: contain;" 
+        alt="${product.title}"
+        onclick="popUpWindow(
+          '${product.image.replace(/'/g, "\\'")}', 
+          '${product.title.replace(/'/g, "\\'")}', 
+          '${product.description.replace(/'/g, "\\'")}', 
+          '${product.price}'
+        )"
+      >
+    </div>
+    <div class="card-body d-flex flex-column">
+      <h5 class="card-title text-truncate">${product.title}</h5>
+      <p class="card-text flex-grow-1">${product.description.substring(0, 100)}...</p>
+      <p class="fw-bold">${product.price}$</p>
+      <button 
+        class="btn btn-outline-secondary mt-auto w-100" 
+        onclick="AddToCart(
+          '${product.image.replace(/'/g, "\\'")}', 
+          '${product.title.replace(/'/g, "\\'")}', 
+          '${product.description.replace(/'/g, "\\'")}', 
+          '${product.price}', 
+          '${product.id}'
+        )"
+      >
+        Add To Cart
+      </button>
+    </div>
+  </div>
+`;
 
     rowDiv.appendChild(productDiv);
   });

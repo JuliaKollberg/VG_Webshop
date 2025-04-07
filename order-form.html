@@ -111,31 +111,91 @@
 
     <br /><br /><br /><br />
 
-    <div class="product-form-container">
-      <!-- Bootstrap card -->
+    <div class="container row ">
+  
 
-      <div class="card order-card" style="width: 18rem">
-        <img
-          id="product-image-form"
-          class="card-img-top"
-          src="..."
-          alt="Card image cap"
-        />
-        <div class="card-body">
-          <h5 id="product-title-form" class="card-title">Card title</h5>
-          <p id="product-desc-form" class="card-text">
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </p>
-          <p id="product-price-form" class="fw-bold"></p>
-        </div>
+      <div id="FinalCartContainer" class="col-md-6" >
+
+        container
+       
       </div>
 
+         <!-- Load in products -->
+         <script>
+
+
+function loadInCart() {
+  const cart = JSON.parse(localStorage.getItem("cartItems")) || [];
+  const cartContainer = document.getElementById("FinalCartContainer");
+  cartContainer.innerHTML = ""; // Clear container before loading items
+
+  cart.forEach(item => {
+    const shortDescription = item.description.length > 50 
+      ? item.description.substring(0, 50) + "..." 
+      : item.description;
+
+    const cartItem = document.createElement("div");
+    cartItem.className = "cart-item mb-3 d-flex gap-2 align-items-start";
+    cartItem.id = `cart-item-${item.id}`;
+
+    cartItem.innerHTML = `
+      <img src="${item.image}" alt="${item.title}" class="img-thumbnail" style="width: 300px; height: auto;" />
+      <div class="cart-item-details">
+        <h6 class="mb-1">${item.title}</h6>
+        <p class="mb-1">${shortDescription}</p>
+        <p class="mb-2 fw-bold">Price: $${item.price}</p>
+        
+      </div>
+    `;
+
+    cartContainer.appendChild(cartItem);
+  });
+}
+window.addEventListener("DOMContentLoaded", loadInCart);
+
+  
+         </script>
+
+      
+
+
+
+
+
+
+
       <!-- Bootstrap form -->
+       <div class="container col-md-6 fixed-col">
+
+         <!--Price Information-->
+        <div class="price-info">
+          <h4>Price Information</h4>
+          <p>Total Price: $<span id="total-price">0.00</span></p>
+        </div>
+        <script>
+          function calculateTotalPrice() {
+            const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+            let total = 0;
+        
+            for (const item of cartItems) {
+              total += parseFloat(item.price);
+            }
+        
+            return total.toFixed(2); 
+          }
+        
+          // Call it when the page loads
+          document.addEventListener("DOMContentLoaded", () => {
+            const total = calculateTotalPrice();
+            document.getElementById("total-price").textContent = total;
+          });
+        </script>
+
       <form
-        class="container m-20"
+        class="container"
         onsubmit="return validateForm()"
         action="javascript: orderConfirmation()"
+        
       >
         <div class="form-group">
           <label for="exampleInputname">Full name</label>
@@ -221,6 +281,7 @@
 
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
+    </div>
     </div>
 
     <script src="order-form.js"></script>

@@ -94,3 +94,18 @@ box-shadow: none;
   background-color: rgba(0, 0, 0, 0.2)
 }
 
+.sidebar {
+  background-color: #f8f9fa;
+  padding: 20px;
+  height: 100vh; /* Full height */
+  position: sticky;
+  top: 0; /* Sticks to the top when scrolling */
+  overflow-y: auto; /* Adds scrolling inside sidebar if content overflows */
+}
+
+.fixed-col {
+  height: 100vh;
+  overflow-y: auto;
+  position: sticky;
+  top: 100px;
+}

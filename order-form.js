@@ -1,24 +1,44 @@
 async function getData() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const prodId = urlParams.get("product-id");
+  try {
+    const urlParams = new URLSearchParams(window.location.search);
+    const prodId = urlParams.get("product-id");
 
-  const data = await fetch('https://fakestoreapi.com/products/'+prodId)
-  .then(response => response.json());
+    console.log("product-id from URL:", prodId);
 
-  const productImageElement = document.getElementById("product-image-form");
-  productImageElement.src = data.image;
+    if (!prodId) {
+      throw new Error("Missing product ID in URL");
+    }
 
-  const productTitleElement = document.getElementById("product-title-form");
-  productTitleElement.textContent = data.title;
+    const response = await fetch(`https://fakestoreapi.com/products/${prodId}`);
 
-  const productDescElement = document.getElementById("product-desc-form");
-  productDescElement.textContent = data.description;
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
 
-  const productPriceElement = document.getElementById("product-price-form");
-  productPriceElement.textContent = `$${data.price}`;  
+    const text = await response.text();
+    if (!text) {
+      throw new Error("Empty response body");
+    }
+
+    const data = JSON.parse(text);
+
+    if (!data || !data.image || !data.title || !data.description || !data.price) {
+      throw new Error("Incomplete product data received");
+    }
+
+    document.getElementById("product-image-form").src = data.image;
+    document.getElementById("product-title-form").textContent = data.title;
+    document.getElementById("product-desc-form").textContent = data.description;
+    document.getElementById("product-price-form").textContent = `$${data.price}`;
+
+  } catch (error) {
+    console.error("Failed to load product data:", error);
+    const container = document.getElementById("product-title-form");
+    if (container) {
+      container.textContent = "Failed to load product.";
+    }
+  }
 }
-
-getData();
 
 function orderConfirmation() {
   const urlParams = new URLSearchParams(window.location.search);
