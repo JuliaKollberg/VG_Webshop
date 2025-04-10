@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Web Shop</title>
+    <script src="Cart.js"></script>
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -230,133 +231,8 @@
     <button onclick="payCart()" type="button" class="btn btn-outline-primary mt-2">Buy Cart</button>
     <button onclick="clearCart()" class="btn btn-outline-dark mt-2">Clear Cart</button>
   </div>
-<!-- Open and close Cart -->
-<script>
-  let cartBar = document.getElementById("cartSideBarID");
-  let cartButton = document.getElementById("cartButtonID");
-  let mainPageDiv = document.getElementById("MainPageID");
-
-  function openCart() {
-    if (cartBar.style.display === "block") {
-      //Hidden Cart
-      cartBar.style.display = "none";
-      MainPageID.classList.remove("col-md-9");
-      MainPageID.classList.add("col-md-12");
 
 
-    } else {
-      //Visable Cart
-      cartBar.style.display = "block";
-      MainPageID.classList.remove("col-md-12");
-      MainPageID.classList.add("col-md-9");
-    }
-  }
-</script>
-<!-- Add To Cart Function -->
- <script>
- function AddToCart(image, title, description, price, id) {
-  createCartProduct(image, title, description, price, id);
-  addToArray(image, title, description, price, id);
-  
- }
-
-// Cart pruduct base
-function createCartProduct(image, title, description, price, id) {
-  let cartItemsContainer = document.getElementById("cartItemsContainer");
-  let cartItem = document.createElement("div");
-  cartItem.className = "cart-item mb-3 d-flex gap-2 align-items-start";
-  cartItem.id = `cart-item-${id}`;
-
-  const shortDescription = description.length > 50 
-    ? description.substring(0, 50) + "..." 
-    : description;
-
-  cartItem.innerHTML = `
-    <img src="${image}" alt="${title}" class="img-thumbnail" style="width: 80px; height: auto;" />
-    <div class="cart-item-details">
-      <h6 class="mb-1">${title}</h6>
-      <p class="mb-1">${shortDescription}</p>
-      <p class="mb-2 fw-bold">Price: $${price}</p>
-      <button class="btn btn-outline-danger btn-sm" onclick="removeFromCart('${id}')">Remove</button>
-    </div>
-  `;
-  cartItemsContainer.appendChild(cartItem);
-}
-// Remove from cart function
-function removeFromCart(id) {
-  const item = document.getElementById(`cart-item-${id}`);
-  if (item) {
-    item.remove();
-  }
-}
-
-
-// Load cart items from local storage on page load
-window.addEventListener("DOMContentLoaded", () => {
-    const savedCart = localStorage.getItem("cartItems");
-    if (savedCart) {
-      cartItems = JSON.parse(savedCart);
-      cartItems.forEach(item => {
-        createCartProduct(item.image, item.title, item.description, item.price, item.id);
-      });
-    }
-  });
-</script>
-
-
-<!--Save Cart & Load Cart-->
-<script>
-let cartItems = []; // Array to store cart items
-
-function addToArray(image, title, description, price, id) {
-  const cartItem = {
-    image: image,
-    title: title,
-    description: description,
-    price: price,
-    id: id
-  };
-  cartItems.push(cartItem);
-  localStorage.setItem("cartItems", JSON.stringify(cartItems));
-}
- //Clears cart and removes items from local storage
-function clearCart() {
-  cartItems = [];
-  localStorage.removeItem("cartItems");
-  document.getElementById("cartItemsContainer").innerHTML = "";
-}
-
-</script>
-
-
-<!--Buy Now Button-->
-<script>
-
-// Check if cart is empty before redirecting to order form
-function payCart() {
-  if (cartItems.length === 0) {
-    alert("Your cart is empty!");
-  } else {
-    location.href='order-form.html?product-id=${product.id}';
-  }
-}
-
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
 </div>
     <br />
 

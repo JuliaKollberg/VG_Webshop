@@ -109,3 +109,64 @@ box-shadow: none;
   position: sticky;
   top: 100px;
 }
+
+/* Center modal horizontally and vertically */
+.modal-dialog {
+  margin: 0 auto;  /* Center horizontally */
+}
+
+/* Make the modal smaller */
+.modal-sm {
+  max-width: 350px;  /* You can adjust this value */
+}
+
+/* Reduce padding around modal content */
+.modal-content {
+  padding: 10px; /* Remove excess padding */
+}
+
+/* Optional: Adjust padding inside the modal body */
+.modal-body {
+  padding: 15px;  /* Adjust as needed */
+}
+
+/* Center Modal Horizontally and Vertically */
+.custom-modal-dialog {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  margin: 0; /* Remove default margin */
+  position: fixed; /* Ensure it's fixed to the viewport */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Use transform to perfectly center */
+  z-index: 1001; /* Ensure modal is on top */
+}
+
+/* Modal Content */
+.custom-modal-content {
+  position: relative;
+  margin: auto;
+  width: 90%; /* You can adjust this value to make it bigger or smaller */
+  max-width: 800px; /* Increase this to make it bigger */
+  background-color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2); /* Modal shadow */
+}
+
+/* Optional: Reduce Padding Around Modal Content */
+.custom-modal-content {
+  padding: 15px; /* Adjust this value to control the padding */
+}
+
+.custom-display-confirmation{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 35%;
+  margin-right: 35%;
+  padding: 20px;
+  position: fixed;
+}
